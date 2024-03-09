@@ -4,7 +4,31 @@ import seaborn as sns
 import streamlit as st
 
 # memuat dataset
-main_data = pd.read_csv("main_data.csv")
+main_data = pd.read_csv("https://raw.githubusercontent.com/reginakd/proyek_analisis_data/main/dashboard/main_data.csv")
+
+def create_hum(df):
+    hum_df = df.groupby(by="hum").agg({
+        "casual": "sum",
+        "registered": "sum",
+        "cnt": "sum"
+    }).reset_index()  
+    return hum_df
+
+def create_temp(df):
+    temp_df = df.groupby(by="temp").agg({
+        "casual": "sum",
+        "registered": "sum",
+        "cnt": "sum"
+    }).reset_index()  
+    return temp_df
+
+def create_windspeed(df):
+    windspeed_df = df.groupby(by="windspeed").agg({
+        "casual": "sum",
+        "registered": "sum",
+        "cnt": "sum"
+    }).reset_index()  
+    return windspeed_df
 
 # memilih opsi bulan
 selected_month = st.sidebar.selectbox("Select Month", range(1, 13), 1)
