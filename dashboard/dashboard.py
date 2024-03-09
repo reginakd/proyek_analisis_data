@@ -5,6 +5,7 @@ import seaborn as sns
 import streamlit as st
 sns.set(style='dark')
 
+# Menfinisikan fungsi create_sum_sharing untuk membuat DataFrame 
 def create_sum_sharing(df):
     sumshare_df = df.resample(rule='D', on='dteday').agg({
         "casual": "sum",
@@ -15,6 +16,7 @@ def create_sum_sharing(df):
     sumshare_df = sumshare_df.reset_index()
     return sumshare_df
 
+# Menfinisikan fungsi create_monthly_sharing untuk membuat DataFrame 
 def create_monthly_sharing(df):
     monthlyshare_df = df.resample(rule='M', on='dteday').agg({
         "casual": "sum",
@@ -25,6 +27,7 @@ def create_monthly_sharing(df):
     monthlyshare_df = monthlyshare_df.reset_index()
     return monthlyshare_df
 
+# Mendefinisikan fungsi create_yearly_sharing untuk membuat DataFrame
 def create_yearly_sharing(df):
     yearlyshare_df = df.resample(rule='Y', on='dteday').agg({
         "casual": "sum",
@@ -36,12 +39,15 @@ def create_yearly_sharing(df):
     yearlyshare_df.reset_index(inplace=True)  
     return yearlyshare_df
 
+# Membaca data dari URL dan konversi kolom 'dteday' menjadi tipe data datetime
 clean_df = pd.read_csv("https://raw.githubusercontent.com/reginakd/proyek_analisis_data/main/dashboard/main_data.csv")
 clean_df["dteday"] = pd.to_datetime(clean_df["dteday"])
 
+# Menentukan tanggal minimum dan maksimum dari kolom 'dteday'
 min_date = clean_df["dteday"].min()
 max_date = clean_df["dteday"].max()
 
+# Membuat input tanggal
 with st.sidebar:
     st.subheader("Data Visualization")
     start_date, end_date = st.date_input(
@@ -50,13 +56,16 @@ with st.sidebar:
         value=[min_date, max_date]
     )
 
+# Pemilihan tanggal mulai dan akhir 
 main_df = clean_df[(clean_df["dteday"] >= str(start_date)) &
                    (clean_df["dteday"] <= str(end_date))]
 
+# Membuat DataFrame df sebelumnya untuk DataFrame utama yang telah difilter
 sumsharing_df = create_sum_sharing(main_df)
 yearlysum_df = create_yearly_sharing(main_df)
 monthlysum_df = create_yearly_sharing(main_df)
 
+# Membuat Header untuk Streamlit
 st.header("## Bike Sharing Data for Month :sparkles:")
 
 # Grafik jumlah penyewaan sepeda dalam setahun (registered + casual)
