@@ -1,2 +1,1 @@
-https://bikesharingregina.streamlit.app/
-
+https://bikerents.streamlit.app/
