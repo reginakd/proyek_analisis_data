@@ -1,1 +1,1 @@
-https://bikesharings.streamlit.app/
+https://bikessharing.streamlit.app/
