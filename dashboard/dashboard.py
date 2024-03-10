@@ -45,7 +45,7 @@ max_date = clean_df["dteday"].max()
 
 # Membuat input tanggal
 with st.sidebar:
-    st.subheader("Data Visualization")
+    st.subheader("Choose Date")
     start_date, end_date = st.date_input(
         label='Time span',min_value=min_date,
         max_value=max_date,
@@ -65,7 +65,7 @@ byweather_df = create_weathersit(main_df)
 st.header("Bike Sharing Dataset :sparkles:")
 
 # grafik penyewa sepeda perbulan
-st.subheader("Monthly bike shared")
+st.subheader("Total of Bike Sharing per Month")
 fig, ax = plt.subplots(figsize=(16, 8))
 x = monthlysum_df['dteday']
 ax.plot(x, monthlysum_df['casual'], marker='o', color = 'green')
@@ -75,7 +75,7 @@ ax.legend(["Casual", "Registered"])
 st.pyplot(fig)
 
 # grafik penyewa sepeda perhari setiap tahun
-st.subheader("Total bike shared")
+st.subheader("Total of Bike Sharing per Year")
 col1, col2, col3 = st.columns(3)
 with col1:
     sharesum = sum_df.cnt.sum()
@@ -95,7 +95,7 @@ ax.legend(["Casual", "Registered"])
 st.pyplot(fig)
 
 # grafik performa penyewa sepeda berdasarkan cuaca
-st.subheader("Performance based on weather")
+st.subheader("Bike Sharing Based on Weather")
 fig, ax = plt.subplots(figsize=(7, 5))
 x = np.arange(3)
 width = 0.50
